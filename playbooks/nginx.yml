@@ -1,0 +1,27 @@
+---
+- name: "install nginx"
+  become: true
+  hosts: webserver-prod
+  pre_tasks:
+    - name: "update OS"
+      apt:
+        update_cache: yes
+    - name: "active ufw"
+      ufw:
+        state: enabled
+        policy: allow
+  tasks:
+    - name: "install nginx" 
+      apt:
+        name: nginx 
+        state: present
+    - name: "start nginx"
+      service:
+        name: nginx 
+        state: started 
+        enabled: yes
+    - name: "allow http connection"
+      ufw:
+        rule: allow
+        port: http
+        proto: tcp
