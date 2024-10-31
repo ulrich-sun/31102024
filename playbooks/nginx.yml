@@ -1,7 +1,7 @@
 ---
 - name: "install nginx"
   become: true
-  hosts: webserver-prod
+  hosts: webserver
   pre_tasks:
     - name: "update OS"
       apt:
